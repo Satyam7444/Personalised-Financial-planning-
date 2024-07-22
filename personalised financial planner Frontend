@@ -1,1 +1,94 @@
 
+<!-- Index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized Financial Planning</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#expenses">Expenses</a></li>
+                <li><a href="#analytics">Analytics</a></li>
+                <li><a href="#recommendations">Recommendations</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="home">
+            <h1>Welcome to Personalized Financial Planning</h1>
+            <p>Get started with our AI-powered financial service web design</p>
+            <button>Get Started</button>
+            <img src="image.jpeg" alt="Home Image" class="side-image"  style="width: 1140px;">
+            <div class="description">
+                <h2>Take control of your finances</h2>
+                <p>Our personalized financial planning service helps you track your expenses, create a budget, and achieve your financial goals.</p>
+                <p>With our AI-powered technology, you'll receive tailored recommendations and insights to help you make informed financial decisions.</p>
+            </div>
+        </section>
+        <section id="expenses">
+            <h1>Expenses Tracker</h1>
+            <form id="expense-form">
+                <label for="expense-name">Expense Name:</label>
+                <input type="text" id="expense-name" name="expense-name">
+                <label for="expense-amount">Expense Amount:</label>
+                <input type="number" id="expense-amount" name="expense-amount">
+                <button type="submit">Add Expense</button>
+            </form>
+            <table id="expense-list">
+                <thead>
+                    <tr>
+                        <th>Expense Name</th>
+                        <th>Expense Amount</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody id="expense-list-body">
+                    <!-- Expense list will be rendered here -->
+                </tbody>
+            </table>
+            <p id="total-amount">Total Amount: $0.00</p>
+            <img src="download.png" alt="Expenses Image" class="side-image" style="width: auto;">
+            <div class="description">
+                <h2>Track your expenses with ease</h2>
+                <p>Our expenses tracker allows you to easily add and manage your expenses, so you can stay on top of your finances.</p>
+            </div>
+        </section>
+        <section id="analytics">
+            <h1>Financial Analytics</h1>
+            <p>Get detailed insights and data visualization for informed decision-making</p>
+            <!-- Analytics chart will be rendered here -->
+            <img src="istockphoto-1358050858-612x612.jpg" alt="Analytics Image" class="side-image" style="width: auto;">
+            <div class="description">
+                <h2>Make data-driven decisions</h2>
+                <p>Our financial analytics provide you with a clear picture of your financial situation, so you can make informed decisions about your money.</p>
+            </div>
+        </section>
+        <section id="recommendations">
+            <h1>Personalized Recommendations</h1>
+            <p>Get tailored financial suggestions based on your behavior and preferences</p>
+            <!-- Recommendations list will be rendered here -->
+            <img src="images/recommendations-image.jpg" alt="Recommendations Image" class="side-image">
+            <div class="description">
+                <h2>Get personalized financial advice</h2>
+                <p>Our AI-powered technology provides you with personalized financial recommendations, so you can achieve your financial goals.</p>
+            </div>
+        </section>
+        <section id="feedback">
+            <h1>Feedback and Support</h1>
+            <p>Have a question or suggestion? We'd love to hear from you!</p>
+            <ul class="social-media">
+                <li><a href="https://twitter.com/personalfinance" target="_blank"><i class="fab fa-twitter"></i> Twitter</a></li>
+                <li><a href="https://www.linkedin.com/company/personalfinance/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                <li><a href="https://www.facebook.com/personalfinance/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></li>
+            </ul>
+       </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
