@@ -1,1 +1,140 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
 
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1em;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+nav li {
+    margin-right: 20px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2em;
+}
+
+section {
+    background-color: #f7f7f7;
+    padding: 2em;
+    margin-bottom: 20px;
+    box-shadow: -33px 68px 154px 0px rgba(0,0,0,0.75);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #444;
+}
+
+.side-image {
+    width: 30%;
+    height: 100%;
+    object-fit: cover;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.description {
+    width: 30%;
+    margin: 20px;
+    text-align: left;
+}
+
+.description h2 {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.description p {
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.social-media {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+}
+
+.social-media li {
+    margin-right: 20px;
+}
+
+.social-media a {
+    color: #333;
+    text-decoration: none;
+}
+
+.social-media i {
+    margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+    }
+
+    section {
+        flex-direction: column;
+        display: flex;
+        gap: 10px;
+    }
+
+    .side-image {
+        width: 1200px!important;
+        height: 400px;
+        margin: 20px 0;
+    }
+
+    .description {
+        width: 100%;
+    }
+
+    .social-media {
+        width: 100%;
+    }
+}
