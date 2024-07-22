@@ -1,0 +1,303 @@
+import pandas as pd
+
+# Path to the parquet file
+parquet_file_path = os.path.join(extraction_path, 'train-00000-of-00001.parquet')
+
+# Load the parquet file into a DataFrame
+df = pd.read_parquet(parquet_file_path)
+df.head()
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_squared_error
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+# Assuming 'input' is the feature and 'output' is the target, and that 'output' needs to be numerically encoded
+# Replace with appropriate encoding if 'output' is not numerical
+y = df['output'].factorize()[0]  # Factorize output for numerical representation
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(df[['input']], y, test_size=0.2, random_state=42)
+
+# Preprocessing pipeline (assuming 'input' is text data and needs to be vectorized)
+# Replace with appropriate preprocessing steps if 'input' is not text
+preprocessor = ColumnTransformer(
+    transformers=[
+        ('text', TfidfVectorizer(), 'input'),  # Example text vectorization
+    ])
+
+# Model pipeline
+pipeline = Pipeline(steps=[
+    ('preprocessor', preprocessor),
+    ('model', RandomForestRegressor())
+])
+
+# Fit the model
+pipeline.fit(X_train, y_train)
+
+# Make predictions
+y_pred = pipeline.predict(X_test)
+
+# Evaluate the model
+mse = mean_squared_error(y_test, y_pred)
+print("Mean Squared Error:", mse)
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_squared_error
+from sklearn.feature_extraction.text import TfidfVectorizer
+import pandas as pd
+
+# Assuming 'input' is the feature and 'output' is the target, and that 'output' needs to be numerically encoded
+# Load the dataset (assuming df is already loaded from the parquet file)
+# df = pd.read_parquet(parquet_file_path)  # Uncomment if df is not already loaded
+
+# Factorize the output for numerical representation
+y = df['output'].factorize()[0]  # Factorize output for numerical representation
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(df[['input']], y, test_size=0.2, random_state=42)
+
+# Preprocessing pipeline (assuming 'input' is text data and needs to be vectorized)
+# Replace with appropriate preprocessing steps if 'input' is not text
+preprocessor = ColumnTransformer(
+    transformers=[
+        ('text', TfidfVectorizer(), 'input'),  # Example text vectorization
+    ])
+
+# Model pipeline
+pipeline = Pipeline(steps=[
+    ('preprocessor', preprocessor),
+    ('model', RandomForestRegressor())
+])
+
+# Fit the model
+pipeline.fit(X_train, y_train)
+
+# Make predictions
+y_pred = pipeline.predict(X_test)
+
+# Evaluate the model
+mse = mean_squared_error(y_test, y_pred)
+print("Mean Squared Error:", mse)
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_squared_error
+from sklearn.feature_extraction.text import TfidfVectorizer
+import pandas as pd
+
+# Assuming 'input' is the feature and 'output' is the target, and that 'output' needs to be numerically encoded
+# Load the dataset (assuming df is already loaded from the parquet file)
+# df = pd.read_parquet(parquet_file_path)  # Uncomment if df is not already loaded
+
+# Factorize the output for numerical representation
+y = df['output'].factorize()[0]  # Factorize output for numerical representation
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(df[['input']], y, test_size=0.2, random_state=42)
+
+# Preprocessing pipeline (assuming 'input' is text data and needs to be vectorized)
+# Replace with appropriate preprocessing steps if 'input' is not text
+preprocessor = ColumnTransformer(
+    transformers=[
+        ('text', TfidfVectorizer(), 'input'),  # Example text vectorization
+    ])
+
+# Model pipeline
+pipeline = Pipeline(steps=[
+    ('preprocessor', preprocessor),
+    ('model', RandomForestRegressor())
+])
+
+# Fit the model
+pipeline.fit(X_train, y_train)
+
+# Make predictions
+y_pred = pipeline.predict(X_test)
+
+# Evaluate the model
+mse = mean_squared_error(y_test, y_pred)
+print("Mean Squared Error:", mse)
+from sklearn.model_selection import GridSearchCV
+
+# Define the parameter grid
+param_grid = {
+    'model__n_estimators': [100, 200, 300],
+    'model__max_depth': [None, 10, 20, 30],
+    'model__min_samples_split': [2, 5, 10],
+    'model__min_samples_leaf': [1, 2, 4]
+}
+
+# Create a GridSearchCV object
+grid_search = GridSearchCV(pipeline, param_grid, cv=3, scoring='neg_mean_squared_error', verbose=2, n_jobs=-1)
+
+# Fit the grid search to the data
+grid_search.fit(X_train, y_train)
+
+# Get the best parameters and score
+best_params = grid_search.best_params_
+best_score = -grid_search.best_score_
+
+print("Best Parameters:", best_params)
+print("Best Mean Squared Error:", best_score)
+
+# Evaluate the best model on the test set
+best_model = grid_search.best_estimator_
+y_pred = best_model.predict(X_test)
+mse = mean_squared_error(y_test, y_pred)
+print("Test Set Mean Squared Error:", mse)
+from sklearn.model_selection import RandomizedSearchCV
+import numpy as np
+
+# Define the parameter distribution
+param_distributions = {
+    'model__n_estimators': [100, 150, 200],
+    'model__max_depth': [None, 10, 15],
+    'model__min_samples_split': [2, 5, 8],
+    'model__min_samples_leaf': [1, 2, 3]
+}
+
+# Create a RandomizedSearchCV object
+random_search = RandomizedSearchCV(
+    pipeline,
+    param_distributions,
+    n_iter=10,  # Number of parameter settings that are sampled
+    cv=3,  # Cross-validation folds
+    scoring='neg_mean_squared_error',
+    verbose=2,
+    n_jobs=-1,
+    random_state=42
+)
+
+# Fit the random search to the data
+random_search.fit(X_train, y_train)
+
+# Get the best parameters and score
+best_params = random_search.best_params_
+best_score = -random_search.best_score_
+
+print("Best Parameters:", best_params)
+print("Best Mean Squared Error (CV):", best_score)
+
+# Evaluate the best model on the test set
+best_model = random_search.best_estimator_
+y_pred = best_model.predict(X_test)
+mse = mean_squared_error(y_test, y_pred)
+print("Test Set Mean Squared Error:", mse)
+# Sample a smaller subset of data for quick initial tuning
+X_train_sample, _, y_train_sample, _ = train_test_split(X_train, y_train, train_size=0.2, random_state=42)
+
+# Fit the random search to the smaller subset
+random_search.fit(X_train_sample, y_train_sample)
+
+# Get the best parameters and score from the subset
+best_params = random_search.best_params_
+best_score = -random_search.best_score_
+
+print("Best Parameters from Subsample:", best_params)
+print("Best Mean Squared Error (CV) from Subsample:", best_score)
+
+# Evaluate the best model on the full test set
+best_model = random_search.best_estimator_
+y_pred = best_model.predict(X_test)
+mse = mean_squared_error(y_test, y_pred)
+print("Test Set Mean Squared Error:", mse)
+import pandas as pd
+from sklearn.model_selection import train_test_split, RandomizedSearchCV
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_squared_error
+from sklearn.feature_extraction.text import TfidfVectorizer
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the parquet file into a DataFrame
+parquet_file_path = '/content/extracted_data/train-00000-of-00001.parquet'
+df = pd.read_parquet(parquet_file_path)
+
+# Assuming 'input' is the feature and 'output' is the target, and that 'output' needs to be numerically encoded
+y = df['output'].factorize()[0]  # Factorize output for numerical representation
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(df[['input']], y, test_size=0.2, random_state=42)
+
+# Preprocessing pipeline (assuming 'input' is text data and needs to be vectorized)
+preprocessor = ColumnTransformer(
+    transformers=[
+        ('text', TfidfVectorizer(), 'input'),  # Example text vectorization
+    ])
+
+# Model pipeline
+pipeline = Pipeline(steps=[
+    ('preprocessor', preprocessor),
+    ('model', RandomForestRegressor())
+])
+
+# Define the parameter distribution for RandomizedSearchCV
+param_distributions = {
+    'model__n_estimators': [100, 150, 200, 250],
+    'model__max_depth': [None, 10, 15, 20],
+    'model__min_samples_split': [2, 5, 8, 10],
+    'model__min_samples_leaf': [1, 2, 3, 4]
+}
+
+# Create a RandomizedSearchCV object
+random_search = RandomizedSearchCV(
+    pipeline,
+    param_distributions,
+    n_iter=20,  # Increased number of iterations for better tuning
+    cv=3,  # Cross-validation folds
+    scoring='neg_mean_squared_error',
+    verbose=2,
+    n_jobs=-1,
+    random_state=42
+)
+
+# Fit the random search to the data
+random_search.fit(X_train, y_train)
+
+# Get the best parameters and score
+best_params = random_search.best_params_
+best_score = -random_search.best_score_
+
+print("Best Parameters:", best_params)
+print("Best Mean Squared Error (CV):", best_score)
+
+# Evaluate the best model on the test set
+best_model = random_search.best_estimator_
+y_pred = best_model.predict(X_test)
+mse = mean_squared_error(y_test, y_pred)
+print("Test Set Mean Squared Error:", mse)
+
+# Feature importance (for RandomForestRegressor)
+if hasattr(best_model.named_steps['model'], 'feature_importances_'):
+    feature_importances = best_model.named_steps['model'].feature_importances_
+    features = best_model.named_steps['preprocessor'].transformers_[0][1].get_feature_names_out()
+
+    feature_importance_df = pd.DataFrame({
+        'Feature': features,
+        'Importance': feature_importances
+    }).sort_values(by='Importance', ascending=False)
+
+    # Plot feature importances
+    plt.figure(figsize=(10, 6))
+    sns.barplot(x='Importance', y='Feature', data=feature_importance_df)
+    plt.title('Feature Importances')
+    plt.show()
+
+# Visualize predictions vs actual values
+plt.figure(figsize=(10, 6))
+sns.scatterplot(x=y_test, y=y_pred)
+plt.xlabel('Actual Values')
+plt.ylabel('Predicted Values')
+plt.title('Actual vs Predicted Values')
+plt.show()
